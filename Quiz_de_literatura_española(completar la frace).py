@@ -1,4 +1,4 @@
-# """Quiz de Literatura Española (completar frase) - Tkinter."""
+# "Quiz de Literatura Española (completar frase) - Tkinter."
 #OBJETIVO: desarrollar un juego de preguntas y respuestas sobre literatura española, donde el jugador debe completar frases con la palabra correcta. El juego utiliza una interfaz gráfica creada con Tkinter y lee las preguntas desde un archivo CSV.
 #PROYECTO FINAL  DE LENJUAJES DE PROGRAMACION 1
 #NOMBRE:Sofia Lizeth Jacobo Cuaya 
@@ -10,11 +10,11 @@ import tkinter as tk
 from tkinter import messagebox
 
 ARCHIVO = os.path.join(os.path.dirname(os.path.abspath(__file__)), "preguntas.csv")
-NUM_PREGUNTAS = 5
+NUM_PREGUNTAS = 3
 PTS_ESCRITA = 10
 PTS_LISTA = 5
 FUENTE = ("Times New Roman", 16)
-COLOR_TEXTO = "#977979"
+COLOR_TEXTO = "#000000"
 
 
 def normalizar(texto):
@@ -23,7 +23,7 @@ def normalizar(texto):
 
 
 def cargar_preguntas(ruta=ARCHIVO):
-    """Lee TODAS las preguntas del CSV: lista de (frase, respuesta)."""
+    "Lee TODAS las preguntas del CSV: lista de (frase, respuesta)."
     preguntas = []
     with open(ruta, newline="", encoding="utf-8") as f:
         for fila in csv.reader(f):
@@ -36,7 +36,7 @@ def cargar_preguntas(ruta=ARCHIVO):
 
 
 def opciones_para(correcta, todas, cantidad=5):
-    """Respuesta correcta + distractores tomados de las demás respuestas."""
+    "Respuesta correcta + distractores tomados de las demás respuestas."
     otras = list({p for _, p in todas if normalizar(p) != normalizar(correcta)})
     random.shuffle(otras)
     opciones = [correcta] + otras[: cantidad - 1]
@@ -69,6 +69,9 @@ class App(tk.Tk):
         self.puntaje = 0
         self.aciertos = 0
         self.vista = None
+        self.configure(bg="lightgreen")
+        self.option_add("*Frame.Background", "lightgreen")
+        self.option_add("*Label.Background", "lightgreen")
         self.vista_inicio()
 
     def cambiar_vista(self):
@@ -78,7 +81,7 @@ class App(tk.Tk):
         self.vista.pack(fill="both", expand=True)
         return self.vista
 
-    # ---------- Vista 1: Inicio ----------
+    #  Vista 1: Inicio 
     def vista_inicio(self):
         f = self.cambiar_vista()
         tk.Label(f, text="Quiz de Literatura Española",
@@ -114,7 +117,7 @@ class App(tk.Tk):
         self.unbind("<Return>")
         self.vista_juego()
 
-    # ---------- Vista 2: Juego ----------
+    #  Vista 2: Juego 
     def vista_juego(self):
         frase, correcta = self.juego[self.indice]
         f = self.cambiar_vista()
@@ -168,7 +171,7 @@ class App(tk.Tk):
             self.unbind("<Return>")
             self.vista_resultados()
 
-    # ---------- Vista 3: Resultados ----------
+    # Vista 3: Resultados 
     def vista_resultados(self):
         f = self.cambiar_vista()
         tk.Label(f, text="Resultados", font=("Times New Roman", 24, "bold"),
@@ -189,5 +192,4 @@ class App(tk.Tk):
 
 
 if __name__ == "__main__":
-    App().mainloop()
- 
+ App().mainloop()
